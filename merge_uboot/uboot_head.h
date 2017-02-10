@@ -54,9 +54,12 @@ struct spare_boot_data_head
 	normal_gpio_cfg             sdcard_gpio[32];        // sdcard GPIO
 	char                        sdcard_spare_data[256]; // sdcard
 	int                         secureos_exist;
-	int                         dtb_offset;
-	int                         reserved[4];            //256bytes align
-	
+  unsigned int                uboot_start_sector_in_mmc;  //use in OTA update
+	int                         dtb_offset;                 //device tree in uboot
+	int                         boot_package_size;          //boot package size, boot0 pass this value
+	unsigned int                dram_scan_size;				//dram 扫描空间大小
+	int                         reserved[1];                // 保留数据位, 256bytes align
+          //256bytes align
 };
 
 struct spare_boot_ext_head
