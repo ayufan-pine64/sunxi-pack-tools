@@ -13,7 +13,7 @@
 #define  MAX_PATH             (260)
 
 
-__asm__(".symver memcpy ,memcpy@GLIBC_2.2.5");
+//__asm__(".symver memcpy ,memcpy@GLIBC_2.2.5");
 void *script_file_decode(char *script_name);
 int update_for_boot0(char *boot0_name, int storage_type);
 //------------------------------------------------------------------------------------------------------------
@@ -409,7 +409,7 @@ int update_sdcard_info(char  *buf)
 
 				return -1;
 			}
-			//support to init 8 line 
+			//support to init 8 line
 			if(8 == card_info->line_sel[i])
 			{
 				//获取DATA4
@@ -572,6 +572,12 @@ int update_for_boot0(char *boot0_name, int storage_type)
         {
             boot0_head->prvt_head.debug_mode = 1;
         }
+
+	if (!script_parser_fetch("target", "power_mode", value))
+	{
+		boot0_head->prvt_head.power_mode = value[0];
+	}
+
 	//取出数据进行修正,DRAM参数
 	if(script_parser_sunkey_all("dram_para", (void *)boot0_head->prvt_head.dram_para))
 	{

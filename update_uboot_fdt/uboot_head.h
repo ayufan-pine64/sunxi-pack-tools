@@ -40,22 +40,24 @@ struct spare_boot_ctrl_head
 struct spare_boot_data_head
 {
 	unsigned int                dram_para[32];
-	int							run_clock;				// Mhz
-	int							run_core_vol;			// mV
-	int							uart_port;              // UART���������
-	normal_gpio_cfg             uart_gpio[2];           // UART������(���Դ�ӡ��)GPIO��Ϣ
-	int							twi_port;               // TWI���������
-	normal_gpio_cfg             twi_gpio[2];            // TWI������GPIO��Ϣ�����ڿ���TWI
-	int		                    work_mode;              // ����ģʽ
-    int                         storage_type;           // �洢��������  0��nand   1��sdcard    2: spinor
-    normal_gpio_cfg             nand_gpio[32];          // nand GPIO��Ϣ
-    char						nand_spare_data[256];	// nand ������Ϣ
-    normal_gpio_cfg             sdcard_gpio[32];		// sdcard GPIO��Ϣ
-    char             			sdcard_spare_data[256];	// sdcard ������Ϣ
-    int                         secureos_exist;
-    int				            dtb_offset;			
-    int							reserved[4];			// ��������λ, 256bytes align
-
+	int                         run_clock;              // Mhz
+	int                         run_core_vol;           // mV
+	int                         uart_port;              // UART控制器编号
+	normal_gpio_cfg             uart_gpio[2];           // UART控制器(调试打印口)GPIO信息
+	int                         twi_port;               // TWI控制器编号
+	normal_gpio_cfg             twi_gpio[2];            // TWI控制器GPIO信息，用于控制TWI
+	int                         work_mode;              // 工作模式
+	int                         storage_type;           // 存储介质类型  0：nand   1：sdcard    2: spinor
+	normal_gpio_cfg             nand_gpio[32];          // nand GPIO信息
+	char                        nand_spare_data[256];	// nand 额外信息
+	normal_gpio_cfg             sdcard_gpio[32];		// sdcard GPIO信息
+	char                        sdcard_spare_data[256];	// sdcard 额外信息
+	int                         secureos_exist;
+	unsigned int                uboot_start_sector_in_mmc;  //use in OTA update
+	int                         dtb_offset;                 //device tree in uboot
+	int                         boot_package_size;          //boot package size, boot0 pass this value
+	unsigned int				dram_scan_size;				//dram 扫描空间大小
+	int                         reserved[1];                // 保留数据位, 256bytes align
 };
 
 struct spare_boot_head_t
